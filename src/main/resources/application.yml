@@ -17,7 +17,7 @@ mybatis-plus:
 jwt:
   tokenHeader: Authorization # JWT存储的请求头
   secret: mall-admin-secret # JWT加密使用的密钥
-  expirection: 604800 # JWT的超期限时间
+  expiration: 604800 # JWT的超期限时间
   tokenHead: 'Bearer '  # jwt负载中拿到的开头
 
 
