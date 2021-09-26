@@ -40,11 +40,6 @@ public class UmsAdminController {
     @Autowired
     private UmsRoleService roleService;
 
-    @RequestMapping(value = "/hello")
-    public String hello() {
-        return "hello";
-    }
-
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public CommonResult<UmsAdmin> register(@Validated @RequestBody UmsAdminParam umsAdminParam) {
@@ -52,6 +47,7 @@ public class UmsAdminController {
         if (umsAdmin == null) {
             return CommonResult.failed();
         }
+        umsAdmin.setPassword(null);
         return CommonResult.success(umsAdmin);
     }
 

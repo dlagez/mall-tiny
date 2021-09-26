@@ -33,10 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 不需要保护的资源允许访问
         for (String url : ignoreUrlsConfig().getUrls()) {
-            System.out.println(url);
+//            System.out.println(url);
             registry.antMatchers(url).permitAll();
         }
-        registry.antMatchers("/swagger-ui.html").permitAll();
+//        registry.antMatchers("/swagger-ui.html").permitAll();
 
         // 允许跨域请求的OPTIONS请求
         registry.antMatchers(HttpMethod.OPTIONS).permitAll();
