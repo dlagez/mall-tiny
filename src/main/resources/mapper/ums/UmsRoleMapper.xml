@@ -12,5 +12,10 @@
         <result column="status" property="status" />
         <result column="sort" property="sort" />
     </resultMap>
+    <select id="getRoleList" resultType="com.roc.malltiny.modules.ums.model.UmsRole">
+        select r.*
+        from ums_admin_role_relation ar left join ums_role r on ar.role_id = r.id
+        where ar.admin_id = #{adminId}
+    </select>
 
 </mapper>

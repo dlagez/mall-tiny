@@ -31,7 +31,7 @@ public interface UmsAdminCacheService {
     void setAdmin(UmsAdmin admin);
 
     // 获取缓存后台用户资源列表
-    List<UmsAdmin> getResourceList(Long adminId);
+    List<UmsResource> getResourceList(Long adminId);
 
     // 设置后台用户资源列表
     void setResourceList(Long adminId, List<UmsResource> resourcesList);

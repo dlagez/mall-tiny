@@ -12,6 +12,9 @@ import com.roc.malltiny.modules.ums.service.UmsAdminRoleRelationService;
 import com.roc.malltiny.modules.ums.service.UmsAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -44,6 +47,7 @@ public class UmsAdminCacheServiceImpl implements UmsAdminCacheService {
     private String REDIS_KEY_ADMIN;
     @Value("${redis.key.resourceList}")
     private String REDIS_KEY_RESOURCE_LIST;
+
 
     @Override
     public void delAdmin(Long adminId) {
@@ -90,7 +94,7 @@ public class UmsAdminCacheServiceImpl implements UmsAdminCacheService {
 
     @Override
     public void delResourceListByResource(Long resourceId) {
-        // 根据resourveId找出adminId即可删除
+        // 根据resourceId找出adminId即可删除
         List<Long> adminIdList = adminMapper.getAdminIdList(resourceId);
         if (CollUtil.isNotEmpty(adminIdList)) {
            String keyPrefix = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":";
@@ -112,9 +116,9 @@ public class UmsAdminCacheServiceImpl implements UmsAdminCacheService {
     }
 
     @Override
-    public List<UmsAdmin> getResourceList(Long adminId) {
+    public List<UmsResource> getResourceList(Long adminId) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_RESOURCE_LIST + ":" + adminId;
-        return (List<UmsAdmin>) redisService.get(key);
+        return (List<UmsResource>) redisService.get(key);
     }
 
     @Override

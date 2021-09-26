@@ -33,8 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // 不需要保护的资源允许访问
         for (String url : ignoreUrlsConfig().getUrls()) {
+            System.out.println(url);
             registry.antMatchers(url).permitAll();
         }
+        registry.antMatchers("/swagger-ui.html").permitAll();
 
         // 允许跨域请求的OPTIONS请求
         registry.antMatchers(HttpMethod.OPTIONS).permitAll();
@@ -73,6 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // 定义的用于对密码进行编码及比对的接口
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -110,6 +113,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtTokenUtil();
     }
 
+    @ConditionalOnBean(name = "dynamicSecurityService")
     @Bean
     public DynamicSecurityMetadataSource dynamicSecurityMetadataSource() {
         return new DynamicSecurityMetadataSource();
@@ -118,6 +122,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public RestAuthenticationEntryPoint restAuthenticationEntryPoint() {
         return new RestAuthenticationEntryPoint();
+    }
+
+    @ConditionalOnBean(name = "dynamicSecurityService")
+    @Bean
+    public DynamicAccessDecisionManager dynamicAccessDecisionManager() {
+        return new DynamicAccessDecisionManager();
     }
 
 }

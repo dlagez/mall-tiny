@@ -1,12 +1,14 @@
 package com.roc.malltiny.modules.ums.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.roc.malltiny.modules.ums.dto.UmsAdminParam;
 import com.roc.malltiny.modules.ums.dto.UpdateAdminPasswordParam;
 import com.roc.malltiny.modules.ums.model.UmsAdmin;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.roc.malltiny.modules.ums.model.UmsResource;
 import com.roc.malltiny.modules.ums.model.UmsRole;
-import org.springframework.data.domain.Page;
+
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -56,4 +58,11 @@ public interface UmsAdminService extends IService<UmsAdmin> {
 
     // 修改密码
     int updatePassword(UpdateAdminPasswordParam passwordParam);
+
+    /**
+     * 获取用户信息
+     * @param username
+     * @return
+     */
+    UserDetails loadUserByUsername(String username);
 }
